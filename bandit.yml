@@ -1,0 +1,21 @@
+name: Bandit Security Scan
+
+on:
+  push:
+    paths:
+      - "*.py"
+      - "**/*.py"
+  pull_request:
+
+jobs:
+  bandit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Bandit
+        run: pip install bandit
+
+      - name: Run Bandit
+        run: bandit -r . -f txt -o bandit-report.txt
